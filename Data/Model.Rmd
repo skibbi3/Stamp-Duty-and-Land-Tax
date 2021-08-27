@@ -1,0 +1,44 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+data <- read.csv("Data.csv") %>% select(c("Property.number", "Property.Value", "Land.Value")) # remove 78802
+```
+
+```{r}
+data
+```
+
+```{r}
+model <- lm(Land.Value ~ Property.Value, data = data)
+```
+
+```{r}
+summary(model)
+```
+
+```{r}
+plot(data$Land.Value, data$Property.Value)
+abline(model)
+```
+
+```{r}
+predict(model, newdata = based)
+```
+
+```{r}
+based <- data.frame(
+  Property.Value = c(2000000)
+)
+```
+
+```{r}
+saveRDS(model, file = "LandValEstimator.RDS")
+```
